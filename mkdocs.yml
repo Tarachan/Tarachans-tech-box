@@ -2,3 +2,5 @@ site_name: たらちゃんの知恵箱
 nav:
     - Home: index.md
     - Maya: Maya.md
+
+theme: readthedocs
