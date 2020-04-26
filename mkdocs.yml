@@ -3,4 +3,4 @@ nav:
     - Home: index.md
     - Maya: Maya
 
-theme: readthedocs
+theme: material
