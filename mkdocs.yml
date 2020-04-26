@@ -1,6 +1,32 @@
 site_name: たらちゃんの知恵箱
-nav:
-    - Home: index.md
-    - Maya: Maya
+site_author: 'Tarachan'
 
-theme: material
+pages:
+    - Home: index.md
+    - Maya: Maya/maya.md
+    - Test: 
+        - MkDocs 書き方: MkDocs/mkdocs.md
+
+theme:
+  name: material
+  language: 'ja'
+  feature:
+    tabs: true
+  palette:
+   #primary: 'Red'
+   #accent: 'Red'
+
+extra:
+  search:
+    language: 'ja'
+
+markdown_extensions:
+  - codehilite:
+      linenums: true
+      #use_pygments: true
+      #noclasses: true
+      #pygments_style: monokai
+
+extra_css:
+  - "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+  - "css/custom.css"
