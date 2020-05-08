@@ -54,7 +54,7 @@
 }
 
 .md-typeset > p {
-    text-indent: 1em;
+    text-indent: 0em;
 }
 
 .md-typeset > div.admonition {
