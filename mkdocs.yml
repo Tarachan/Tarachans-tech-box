@@ -1,9 +1,16 @@
 site_name: たらちゃんの知恵箱
 site_author: 'Tarachan'
+repo_url: https://github.com/Tarachan/Tarachans-tech-box
+site_url: https://Tarachan.github.io/Tarachans-tech-box/
 
 pages:
     - Home: index.md
     - Maya: Maya/maya.md
+    - Houdini: Houdini/houdini.md
+    - Blender: Blender/blender.md
+    - Nuke: Maya/maya.md
+    - Python: Python/python.md
+    - PySide: Maya/maya.md
     - Test: 
         - MkDocs 書き方: MkDocs/mkdocs.md
 
