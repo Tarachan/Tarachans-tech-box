@@ -28,6 +28,7 @@ extra:
     language: 'ja'
 
 markdown_extensions:
+  #- pymdownx:
   - codehilite:
       linenums: true
       #use_pygments: true
