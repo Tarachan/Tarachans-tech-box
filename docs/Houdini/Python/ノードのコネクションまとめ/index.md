@@ -9,7 +9,7 @@ joint2.setInput(0, joint1, 0)
 ```
 ノード同士のコネクションは【setInput】関数で。  
 
-setInput(input_index, item_to_become_input, output_index=0)
+`setInput(input_index, item_to_become_input, output_index=0)`
 
 第一引数にこのノードの入力コネクタのインデックス、  
 第二引数にコネクション元のノードをhou.Node型で渡す、  
