@@ -9,7 +9,7 @@
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
       
-        <link rel="canonical" href="https://Tarachan.github.io/Tarachans-tech-box/Maya/script/%E9%81%B8%E6%8A%9E%E3%81%97%E3%81%9F%E3%83%A1%E3%83%83%E3%82%B7%E3%83%A5%E3%81%AE%E5%90%84%E6%83%85%E5%A0%B1%E3%82%92%E5%8F%96%E5%BE%97/">
+        <link rel="canonical" href="https://Tarachan.github.io/Tarachans-tech-box/Maya/script/%E3%83%A1%E3%83%83%E3%82%B7%E3%83%A5%E3%81%AEUV%E4%BD%8D%E7%BD%AE%E3%81%8B%E3%82%89%E3%83%AF%E3%83%BC%E3%83%AB%E3%83%89%E3%81%AE%E4%BD%8D%E7%BD%AE%E6%83%85%E5%A0%B1%E3%82%92%E5%8F%96%E5%BE%97/">
       
       
         <meta name="author" content="Tarachan">
@@ -19,7 +19,7 @@
     
     
       
-        <title>選択したメッシュの各情報を取得 - たらちゃんの知恵箱</title>
+        <title>メッシュのUV位置からワールドの位置情報を取得 - たらちゃんの知恵箱</title>
       
     
     
@@ -56,7 +56,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#uv" class="md-skip">
           コンテンツにスキップ
         </a>
       
@@ -84,7 +84,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              選択したメッシュの各情報を取得
+              メッシュのUV位置からワールドの位置情報を取得
             
           </span>
         </div>
@@ -331,7 +331,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/Tarachan/Tarachans-tech-box/edit/master/docs/Maya/script/選択したメッシュの各情報を取得/index.md" title="編集" class="md-content__button md-icon">
+                  <a href="https://github.com/Tarachan/Tarachans-tech-box/edit/master/docs/Maya/script/メッシュのUV位置からワールドの位置情報を取得/index.md" title="編集" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
@@ -339,7 +339,7 @@
                   
                 
                 
-                <h1 id="_1">選択したメッシュの各情報を取得</h1>
+                <h1 id="uv">メッシュのUV位置からワールドの位置情報を取得</h1>
 <table class="codehilitetable"><tr><td class="linenos"><div class="linenodiv"><pre> 1
  2
  3
@@ -351,25 +351,49 @@
  9
 10
 11
-12</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code> <span class="kn">import</span> <span class="nn">maya.api.OpenMaya</span> <span class="kn">as</span> <span class="nn">om</span>
+12
+13
+14
+15
+16
+17
+18
+19
+20</pre></div></td><td class="code"><div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">maya.api.OpenMaya</span> <span class="kn">as</span> <span class="nn">om2</span>
 
- <span class="n">sel</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">MGlobal</span><span class="o">.</span><span class="n">getActiveSelectionList</span><span class="p">()</span>
- <span class="n">dag</span> <span class="o">=</span> <span class="n">sel</span><span class="o">.</span><span class="n">getDagPath</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
- <span class="n">meshFn</span> <span class="o">=</span> <span class="n">om</span><span class="o">.</span><span class="n">MFnMesh</span><span class="p">(</span><span class="n">dag</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">getPointAtUV</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+    <span class="n">sel</span> <span class="o">=</span> <span class="n">om2</span><span class="o">.</span><span class="n">MSelectionList</span><span class="p">()</span>
+    <span class="n">sel</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span>
+    <span class="n">mesh</span> <span class="o">=</span> <span class="n">om2</span><span class="o">.</span><span class="n">MItMeshPolygon</span><span class="p">(</span><span class="n">sel</span><span class="o">.</span><span class="n">getDagPath</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
 
- <span class="sa">u</span><span class="sd">&#39;&#39;&#39;</span>
-<span class="sd"> 全頂点の位置</span>
-<span class="sd"> Return:</span>
-<span class="sd">     MPointArray</span>
-<span class="sd"> &#39;&#39;&#39;</span>
- <span class="k">print</span> <span class="n">meshFn</span><span class="o">.</span><span class="n">getPoints</span><span class="p">()</span>
+    <span class="n">point</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">space</span> <span class="o">=</span> <span class="n">om2</span><span class="o">.</span><span class="n">MSpace</span><span class="o">.</span><span class="n">kWorld</span>
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">count</span><span class="p">()):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">point</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mesh</span><span class="o">.</span><span class="n">getPointAtUV</span><span class="p">([</span><span class="n">u</span><span class="p">,</span> <span class="n">v</span><span class="p">],</span> <span class="n">space</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="n">mesh</span><span class="o">.</span><span class="n">next</span><span class="p">(</span><span class="n">n</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">point</span>
+
+<span class="c1"># example</span>
+<span class="k">print</span> <span class="n">getPointAtUV</span><span class="p">(</span><span class="s1">&#39;pPlane1&#39;</span><span class="p">,</span> <span class="mf">0.45</span><span class="p">,</span> <span class="mf">0.45</span><span class="p">)</span>
 </code></pre></div>
 </td></tr></table>
 
-<p>apiを使用すればメッシュの各情報に簡単にアクセス可能。
-MFnMeshの引数には取得したオブジェクトのMDagPathを指定してあげる必要がある。</p>
-<p>例えば<code>getPoints()</code>関数ですべての頂点の位置情報を取得できる。</p>
-<p><a href="http://help.autodesk.com/view/MAYAUL/2017/JPN/?guid=__py_ref_class_open_maya_1_1_m_fn_mesh_html">MFnMesh help(Maya2017)</a></p>
+<hr />
+<p><code>getPointAtUV(uvPoint, space=kObject, uvSet=None, tolerance=0) -&gt; MPoint</code>  </p>
+<p><code>* uvPoint ([float, float]) - The UV value to try to locate</code><br />
+<code>* space (int) - The coordinate system for this operation</code><br />
+<code>* uvSet (string) - UV set to work with</code><br />
+<code>* tolerance (float) - tolerance value to compare float data type</code>  </p>
+<hr />
+<p><code>MItMeshPolygon</code>クラス内にある<code>getPointAtUV()</code>関数でuv値を指定すれば、指定したuvのポイントがシーンのどの位置にあるかを返してくれます。<br />
+まずMIt～のクラスはイテレーターという連続処理に特化したクラスで、<code>MItMeshPolygon</code>の場合ポリゴンの処理に特化したクラスです。<br />
+使い方は<code>count()</code>関数でメッシュの全ポリゴンの数を取得後、forループ内で<code>next()</code>関数を実行すると順番にすべてのフェースにアクセスできます。<br />
+指定したuv値がフェース上にない場合RuntimeErrorを返すので、上記スクリプトでは無視する処理を入れています。</p>
+<p><a href="http://help.autodesk.com/view/MAYAUL/2017/JPN/?guid=__py_ref_class_open_maya_1_1_m_it_mesh_polygon_html">MItMeshPolygon help(Maya2017)</a></p>
                 
               
               
